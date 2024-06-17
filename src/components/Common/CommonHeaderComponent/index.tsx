@@ -50,7 +50,7 @@ const CommonHeaderComponent = ({
           </TouchableOpacity>
         )}
         <TouchableOpacity onPress={leftButton1Press}>
-          <Text style={[genericStyles.blueText, genericStyles.textMed]}>
+          <Text style={[genericStyles.textMed, genericStyles.blueText]}>
             {leftButton1}
           </Text>
         </TouchableOpacity>
@@ -62,7 +62,7 @@ const CommonHeaderComponent = ({
       {/* Right Buttons */}
       <View style={genericStyles.rowContainer}>
         <TouchableOpacity onPress={rightButton1Press}>
-          <Text style={[genericStyles.blueText, genericStyles.textMed]}>
+          <Text style={[genericStyles.textMed, genericStyles.blueText]}>
             {rightButton1}
           </Text>
         </TouchableOpacity>
