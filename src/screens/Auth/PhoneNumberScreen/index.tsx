@@ -1,16 +1,18 @@
-import { View, Text, TextInput, Modal } from "react-native";
+import { View, Text, TextInput, Modal, Pressable } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
 import Icon from 'react-native-vector-icons/Feather'
 import { responsiveWidth } from "../../../utilities/responsiveFunctions";
 import { CommonHeaderComponent, PhoneNumberModal } from "../../../components";
-import { COLORS } from "../../../resources";
+import { COLORS, ROUTE } from "../../../resources";
+import { useNavigation } from "@react-navigation/native";
 type Props = {};
 
 export const PhoneNumberScreen = (props: Props) => {
     const [number, setNumber] = useState<string>('');
     const [visible, setVisible] = useState<boolean>(false);
+    const navigation = useNavigation();
     const handleChange = (number: string) => {
         let cleanText = number.replace(/[^0-9]/g, '');
         if (cleanText.length > 10) {
@@ -22,10 +24,10 @@ export const PhoneNumberScreen = (props: Props) => {
         setNumber(cleanText);
     };
     const rightBtn1Press = () => {
-        if (number.length > 10) {
-            setVisible(true);
-        }
-
+        // if (number.length > 10) {
+        //     setVisible(true);
+        // }
+        navigation.navigate(ROUTE.EDIT_PROFILE as never);
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -38,10 +40,10 @@ export const PhoneNumberScreen = (props: Props) => {
                 </Text>
 
                 <View style={styles.inputContainer}>
-                    <View style={styles.countryContainer}>
+                    <Pressable style={styles.countryContainer} onPress={() => navigation.navigate(ROUTE.COUNTRY as never)}>
                         <Text style={styles.countryName}>India</Text>
                         <Icon name='chevron-right' size={responsiveWidth(20)} style={styles.icon} />
-                    </View>
+                    </Pressable>
                     <View style={styles.line} ></View>
                     <View style={styles.textInputContainer}>
                         <Text style={styles.text}>+91</Text>

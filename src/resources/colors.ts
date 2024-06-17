@@ -22,4 +22,5 @@ export const COLORS = {
   LIGHT_BLUE_3: '#f5f9ff',
   LIGHT_BLUE_4: '#d3e6ff',
   BGCOLOR:'#F2F2F6',
+  WHITE_BG:'#F5F5F5',
 };

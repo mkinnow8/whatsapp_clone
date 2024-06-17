@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-import { ChatsScreen, OtpScreen, PhoneNumberScreen, WelcomeAuthScreen } from '../screens';
+import { ChatsScreen, CountryScreen, EditProfileScreen, OtpScreen, PhoneNumberScreen, WelcomeAuthScreen } from '../screens';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -109,6 +109,8 @@ const AuthStackNavigator = () => {
       <AuthStack.Screen name={ROUTE.WELCOME_AUTH} component={WelcomeAuthScreen} />
       <AuthStack.Screen name={ROUTE.PHONE_NUMBER} component={PhoneNumberScreen} />
       <AuthStack.Screen name={ROUTE.OTP} component={OtpScreen} />
+      <AuthStack.Screen name={ROUTE.COUNTRY} component={CountryScreen} />
+      <AuthStack.Screen name={ROUTE.EDIT_PROFILE} component={EditProfileScreen} />
     </AuthStack.Navigator>
   );
 };

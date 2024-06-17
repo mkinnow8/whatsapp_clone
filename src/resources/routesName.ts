@@ -7,4 +7,6 @@ export const ROUTE = {
   STATUS: 'Status',
   SETTINGS: 'Settings',
   OTP:'OTP',
+  COUNTRY:'COUNTRYSCREEN',
+  EDIT_PROFILE:'EDITPROFILE'
 };

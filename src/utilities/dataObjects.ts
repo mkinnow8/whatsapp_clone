@@ -1,0 +1,38 @@
+export const country =[
+    {
+        id:1,
+        name:"India",
+        digit:'+91'
+    },
+    {
+        id:2,
+        name:"India",
+        digit:'+91'
+    },
+    {
+        id:3,
+        name:"India",
+        digit:'+91'
+    },
+    {
+        id:4,
+        name:"India",
+        digit:'+91'
+    },
+    {
+        id:5,
+        name:"India",
+        digit:'+91'
+    },
+    {
+        id:6,
+        name:"India",
+        digit:'+91'
+    },
+    {
+        id:1,
+        name:"India",
+        digit:'+91'
+    },
+
+]

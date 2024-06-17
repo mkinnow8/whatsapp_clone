@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
 
         paddingHorizontal: responsiveWidth(4),
-        height: responsiveHeight(24),
+        height: responsiveHeight(32),
         
     },
     searchText: {
