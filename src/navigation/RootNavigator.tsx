@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-import { ChatsScreen, PhoneNumberScreen, WelcomeAuthScreen } from '../screens';
+import { ChatsScreen, OtpScreen, PhoneNumberScreen, WelcomeAuthScreen } from '../screens';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,13 +10,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS, ROUTE } from '../resources';
 
 
+
 type Props = {};
 
 const AuthStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = (props: Props) => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   return (
     <NavigationContainer>
       {loggedIn ? <TabNavigator /> : <AuthStackNavigator />}
@@ -107,6 +108,7 @@ const AuthStackNavigator = () => {
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen name={ROUTE.WELCOME_AUTH} component={WelcomeAuthScreen} />
       <AuthStack.Screen name={ROUTE.PHONE_NUMBER} component={PhoneNumberScreen} />
+      <AuthStack.Screen name={ROUTE.OTP} component={OtpScreen} />
     </AuthStack.Navigator>
   );
 };

@@ -5,7 +5,13 @@ import { respFontSize, responsiveHeight, responsiveWidth, screenWidth } from "..
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
+
+    },
+    headerTxt: {
+        fontSize: respFontSize(12),
+        fontWeight: '600'
+    },
+    mainContainer: {
         alignItems: 'center',
         backgroundColor: COLORS.BGCOLOR
     },
@@ -54,6 +60,7 @@ export const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: respFontSize(14),
+        width: screenWidth - responsiveWidth(40)
     }
 
 

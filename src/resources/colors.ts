@@ -8,7 +8,7 @@ export const COLORS = {
   SILVER: '#efefef',
   WHITE: '#fff',
   GREY: '#8D8D8F',
-  WHITE_GREY: '#d4d4d4',
+  WHITE_GREY: '#F2F2F6',
   DARK_GREY: '#555555',
   LIGHT_BLACK: '#212121',
   SEMI_TRANSPARENT: 'rgba(0,0,0,0.5)',
