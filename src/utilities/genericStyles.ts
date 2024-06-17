@@ -10,8 +10,14 @@ export const genericStyles = StyleSheet.create({
     blueText: {
         color: COLORS.BLUE,
     },
+    textSmall: {
+        fontSize: respFontSize(10)
+    },
     textMed: {
         fontSize: respFontSize(12)
+    },
+    textLarge: {
+        fontSize: respFontSize(14)
     },
     mr12: {
         marginRight: responsiveWidth(12),

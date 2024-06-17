@@ -1,7 +1,22 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from 'react';
 import {styles} from './styles';
-import {CommonHeaderComponent} from '../../../components';
+import {
+  ChatsListItemComponent,
+  CommonHeaderComponent,
+  CommonSearchComponent,
+  HeadingComponent,
+} from '../../../components';
+import {COLORS} from '../../../resources';
+import {genericStyles} from '../../../utilities/genericStyles';
+import {responsiveWidth} from '../../../utilities/responsiveFunctions';
 
 type Props = {};
 
@@ -13,6 +28,23 @@ const ChatsScreen = (props: Props) => {
         rightIcon1="camera-outline"
         rightIcon2="square-edit-outline"
       />
+      <HeadingComponent text="Chats" />
+      <View style={[genericStyles.rowContainer, styles.search]}>
+        <CommonSearchComponent />
+        <TouchableOpacity>
+          <Icon
+            name="filter-variant"
+            size={20}
+            color={COLORS.GREY}
+            style={genericStyles.ml8}
+          />
+        </TouchableOpacity>
+      </View>
+      <CommonHeaderComponent
+        leftButton1="Broadcast Lists"
+        rightButton1="New Group"
+      />
+      <ChatsListItemComponent />
     </SafeAreaView>
   );
 };
