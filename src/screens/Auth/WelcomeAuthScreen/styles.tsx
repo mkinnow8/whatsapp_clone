@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
-import { respFontSize, responsiveHeight, responsiveWidth } from "../../utilities/responsiveFunctions";
-import { COLORS } from "../../resources";
+import { respFontSize, responsiveHeight, responsiveWidth } from "../../../utilities/responsiveFunctions";
+import { COLORS } from "../../../resources";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
-
+        backgroundColor: COLORS.WHITE
     },
     image: {
         marginVertical: responsiveHeight(70)

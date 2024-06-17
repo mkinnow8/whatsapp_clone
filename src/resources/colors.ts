@@ -7,7 +7,7 @@ export const COLORS = {
   BLACK: '#0b0b0b',
   SILVER: '#efefef',
   WHITE: '#fff',
-  GREY: '#7e7e7e',
+  GREY: '#8D8D8F',
   WHITE_GREY: '#d4d4d4',
   DARK_GREY: '#555555',
   LIGHT_BLACK: '#212121',
@@ -20,4 +20,5 @@ export const COLORS = {
   LIGHT_BLUE_2: '#E9F5F5',
   LIGHT_BLUE_3: '#f5f9ff',
   LIGHT_BLUE_4: '#d3e6ff',
+  BGCOLOR:'#F2F2F6',
 };
