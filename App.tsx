@@ -1,10 +1,11 @@
 import React from 'react';
-import { HomeAuthScreen } from './src/screens/HomeAuthScreen';
+
+
+import RootNavigator from './src/navigation/RootNavigator';
 
 function App(): React.JSX.Element {
-  return <>
-    <HomeAuthScreen />
-  </>;
+  return <RootNavigator />;
+
 }
 
 export default App;
