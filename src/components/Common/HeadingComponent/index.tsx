@@ -21,6 +21,7 @@ export {HeadingComponent};
 const styles = StyleSheet.create({
   heading: {
     fontSize: respFontSize(20),
+    fontFamily: 'Playwrite-Polska',
     fontWeight: 'bold',
     color: COLORS.BLACK,
   },

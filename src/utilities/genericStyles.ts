@@ -11,13 +11,17 @@ export const genericStyles = StyleSheet.create({
         color: COLORS.BLUE,
     },
     textSmall: {
-        fontSize: respFontSize(10)
+        fontSize: respFontSize(8),
+        color: COLORS.BLACK
     },
     textMed: {
-        fontSize: respFontSize(12)
+        fontSize: respFontSize(12),
+        color: COLORS.BLACK
     },
     textLarge: {
-        fontSize: respFontSize(14)
+        fontSize: respFontSize(13),
+        fontWeight: '500',
+        color: COLORS.BLACK
     },
     mr12: {
         marginRight: responsiveWidth(12),

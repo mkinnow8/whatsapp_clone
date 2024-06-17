@@ -9,14 +9,16 @@ export const styles = StyleSheet.create({
         backgroundColor: COLORS.LIGHT_BACKGROUND_GREY,
         alignItems: 'center',
         borderRadius: 8,
-
-        paddingHorizontal: responsiveWidth(4),
-        height: responsiveHeight(24),
-        
+        paddingHorizontal: responsiveWidth(6),
+        height: responsiveHeight(28),
     },
     searchText: {
-        flex: 1,
-        height: responsiveHeight(32)
+        textAlignVertical: 'center',
+        padding: 0,
+        paddingLeft: responsiveWidth(6)
     },
-
+    iconStyle: {
+        height: responsiveHeight(12),
+        width: responsiveHeight(12),
+    },
 })

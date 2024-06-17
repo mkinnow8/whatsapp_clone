@@ -1,4 +1,6 @@
 import {
+  FlatList,
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -6,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import React from 'react';
 import {styles} from './styles';
 import {
@@ -16,7 +19,11 @@ import {
 } from '../../../components';
 import {COLORS} from '../../../resources';
 import {genericStyles} from '../../../utilities/genericStyles';
-import {responsiveWidth} from '../../../utilities/responsiveFunctions';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from '../../../utilities/responsiveFunctions';
+import {lock} from '../../../assets';
 
 type Props = {};
 
@@ -44,7 +51,38 @@ const ChatsScreen = (props: Props) => {
         leftButton1="Broadcast Lists"
         rightButton1="New Group"
       />
-      <ChatsListItemComponent />
+      <FlatList
+        data={['', ' ', '', '']}
+        renderItem={({item}) => <ChatsListItemComponent />}
+        ItemSeparatorComponent={() => (
+          <View
+            style={{
+              backgroundColor: COLORS.LIGHT_BACKGROUND_GREY,
+              height: 1,
+              marginStart: responsiveWidth(50 + 18),
+            }}></View>
+        )}
+        ListFooterComponent={() => {
+          return (
+            <View
+              style={[
+                genericStyles.rowContainer,
+                {alignSelf: 'center', marginTop: responsiveHeight(12)},
+              ]}>
+              <Text>
+                <Icon
+                  name="lock"
+                  size={12}
+                  color={COLORS.GREY}
+                  style={genericStyles.ml8}
+                />{' '}
+                Your personal messages are
+              </Text>
+              <Text style={genericStyles.blueText}> end to end encrypted</Text>
+            </View>
+          );
+        }}
+      />
     </SafeAreaView>
   );
 };
