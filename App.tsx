@@ -1,7 +1,10 @@
 import React from 'react';
+import { HomeAuthScreen } from './src/screens/HomeAuthScreen';
 
 function App(): React.JSX.Element {
-  return <></>;
+  return <>
+    <HomeAuthScreen />
+  </>;
 }
 
 export default App;
