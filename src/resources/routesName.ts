@@ -1,5 +1,4 @@
 export const ROUTE = {
-  
-  LOGIN: 'Login',
- 
+
+  ALL_CHATS: 'all_chats',
 };
