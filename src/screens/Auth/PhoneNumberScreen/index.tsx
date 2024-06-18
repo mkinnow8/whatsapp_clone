@@ -7,6 +7,8 @@ import { responsiveWidth } from "../../../utilities/responsiveFunctions";
 import { CommonHeaderComponent, PhoneNumberModal } from "../../../components";
 import { COLORS, ROUTE } from "../../../resources";
 import { useNavigation } from "@react-navigation/native";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { setPhoneNumber } from "../../../redux/slices/UserInfoSlice";
 type Props = {};
 
 export const PhoneNumberScreen = (props: Props) => {
@@ -23,12 +25,15 @@ export const PhoneNumberScreen = (props: Props) => {
         }
         setNumber(cleanText);
     };
+    const dispatch = useAppDispatch();
     const rightBtn1Press = () => {
-        // if (number.length > 10) {
-        //     setVisible(true);
-        // }
-        navigation.navigate(ROUTE.EDIT_PROFILE as never);
+        dispatch(setPhoneNumber({ phoneNumber: number }));
+        if (number.length > 10) {
+            setVisible(true);
+        }
+        // navigation.navigate(ROUTE.EDIT_PROFILE as never);
     }
+    const userInfo = useAppSelector(state => state.userInfo.userInfo)
     return (
         <SafeAreaView style={styles.container}>
             <CommonHeaderComponent rightButton1="Done" rightButton1Press={rightBtn1Press}>
@@ -41,12 +46,12 @@ export const PhoneNumberScreen = (props: Props) => {
 
                 <View style={styles.inputContainer}>
                     <Pressable style={styles.countryContainer} onPress={() => navigation.navigate(ROUTE.COUNTRY as never)}>
-                        <Text style={styles.countryName}>India</Text>
+                        <Text style={styles.countryName}>{userInfo.countryDigit.name}</Text>
                         <Icon name='chevron-right' size={responsiveWidth(20)} style={styles.icon} />
                     </Pressable>
                     <View style={styles.line} ></View>
                     <View style={styles.textInputContainer}>
-                        <Text style={styles.text}>+91</Text>
+                        <Text style={styles.text}>{userInfo.countryDigit.digit}</Text>
                         <TextInput
                             style={styles.textInput}
                             value={number}
@@ -67,7 +72,7 @@ export const PhoneNumberScreen = (props: Props) => {
                 onRequestClose={() => {
                     setVisible(false);
                 }}>
-                <PhoneNumberModal number={number} countryDigit={'+91'} setVisible={setVisible} />
+                <PhoneNumberModal setVisible={setVisible} />
             </Modal>
         </SafeAreaView>
     );

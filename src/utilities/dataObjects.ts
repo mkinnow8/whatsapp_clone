@@ -6,13 +6,13 @@ export const country =[
     },
     {
         id:2,
-        name:"India",
-        digit:'+91'
+        name:"Nepal",
+        digit:'+11'
     },
     {
         id:3,
-        name:"India",
-        digit:'+91'
+        name:"Uk",
+        digit:'+21'
     },
     {
         id:4,
@@ -30,7 +30,7 @@ export const country =[
         digit:'+91'
     },
     {
-        id:1,
+        id:7,
         name:"India",
         digit:'+91'
     },

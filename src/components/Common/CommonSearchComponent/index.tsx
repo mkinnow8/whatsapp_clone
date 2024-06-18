@@ -1,14 +1,17 @@
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import React, {useState} from 'react';
-import {COLORS} from '../../../resources';
-import {styles} from './styles';
-import {searchIcon} from '../../../assets';
+import React, { useState } from 'react';
+import { COLORS } from '../../../resources';
+import { styles } from './styles';
+import { searchIcon } from '../../../assets';
 
-type Props = {};
+type Props = {
+  searchText: string;
+  setSearchText: (searchText: string) => void,
+};
 
-const CommonSearchComponent = (props: Props) => {
-  const [searchText, setSearchText] = useState<string>();
+const CommonSearchComponent = ({ searchText, setSearchText }: Props) => {
+
   return (
     <View style={styles.searchContainer}>
       <Image source={searchIcon} style={styles.iconStyle} />
@@ -22,4 +25,4 @@ const CommonSearchComponent = (props: Props) => {
   );
 };
 
-export {CommonSearchComponent};
+export { CommonSearchComponent };

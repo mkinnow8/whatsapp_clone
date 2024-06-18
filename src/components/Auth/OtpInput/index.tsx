@@ -1,42 +1,60 @@
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 import React, { RefObject, useMemo, useRef, useState } from "react";
+import { COLORS, ROUTE } from "../../../resources";
 import { styles } from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 
-interface OTPInputProps {
-    codes: string[];
 
 
-}
-export const OtpInput = ({ codes }: OTPInputProps) => {
-    const [text, onChangeText] = useState('');
-    let inputRef = useRef();
-    const onPress = () => inputRef.current?.focus();
+export const OtpInput = () => {
+    const [otp, setOtp] = useState(['', '', '', '', '', '']);
+    const inputs = useRef([]);
+    const navigation = useNavigation();
+    const focusNextInput = (index: number, value: string) => {
+        if (value) {
+            if (index < inputs.current.length - 1) {
+                inputs.current[index + 1].focus();
+            }
+        }
+    };
 
-    const otpContent = useMemo(() =>
-        <View >
-            {Array.from({ length: 6 }).map((_, i) => (
-                <Text
-                    onPress={onPress}
-                >
-                    {text[i]}
-                </Text>
-            ))}
-        </View>
-        , [text]);
+    const focusPreviousInput = (index: number) => {
+        if (index > 0) {
+            inputs.current[index - 1].focus();
+        }
+    };
+
+    const handleChange = (text: string, index: number) => {
+        const newOtp = [...otp];
+        newOtp[index] = text;
+        setOtp(newOtp);
+
+        if (text.length === 1) {
+            if (index == 5) {
+                navigation.navigate(ROUTE.EDIT_PROFILE as never);
+            }
+            focusNextInput(index, text);
+        } else {
+            focusPreviousInput(index);
+        }
+    };
     return (
         <View style={styles.container}>
+            {otp.map((digit, index) => (
+                <TextInput
+                    key={index}
+                    ref={(ref) => (inputs.current[index] = ref)}
+                    style={styles.input}
+                    value={digit}
+                    onChangeText={(text) => handleChange(text, index)}
+                    keyboardType="numeric"
+                    maxLength={1}
+                    placeholder="-"
+                    placeholderTextColor={COLORS.BLACK}
 
-            <TextInput
-                maxLength={6}
-                ref={inputRef}
-                style={styles.input}
-                onChangeText={text => onChangeText(text)}
-                value={text}
-                keyboardType="numeric"
-            />
-
-            {otpContent}
+                />
+            ))}
         </View>
     );
 };

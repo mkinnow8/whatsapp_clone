@@ -10,20 +10,20 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import React from 'react';
-import {styles} from './styles';
+import { styles } from './styles';
 import {
   ChatsListItemComponent,
   CommonHeaderComponent,
   CommonSearchComponent,
   HeadingComponent,
 } from '../../../components';
-import {COLORS} from '../../../resources';
-import {genericStyles} from '../../../utilities/genericStyles';
+import { COLORS } from '../../../resources';
+import { genericStyles } from '../../../utilities/genericStyles';
 import {
   responsiveHeight,
   responsiveWidth,
 } from '../../../utilities/responsiveFunctions';
-import {lock} from '../../../assets';
+import { lock } from '../../../assets';
 
 type Props = {};
 
@@ -53,7 +53,7 @@ const ChatsScreen = (props: Props) => {
       />
       <FlatList
         data={['', ' ', '', '']}
-        renderItem={({item}) => <ChatsListItemComponent />}
+        renderItem={({ item }) => <ChatsListItemComponent />}
         ItemSeparatorComponent={() => (
           <View
             style={{
@@ -67,7 +67,7 @@ const ChatsScreen = (props: Props) => {
             <View
               style={[
                 genericStyles.rowContainer,
-                {alignSelf: 'center', marginTop: responsiveHeight(12)},
+                { alignSelf: 'center', marginTop: responsiveHeight(12) },
               ]}>
               <Text>
                 <Icon
@@ -87,4 +87,4 @@ const ChatsScreen = (props: Props) => {
   );
 };
 
-export {ChatsScreen};
+export { ChatsScreen };

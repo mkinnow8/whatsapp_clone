@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS, ROUTE } from '../resources';
+import { useAppSelector } from '../redux/hooks';
 
 
 
@@ -17,10 +18,10 @@ const AuthStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = (props: Props) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const isLoggedIn = useAppSelector(state => state.userInfo.isLoggedIn)
   return (
     <NavigationContainer>
-      {loggedIn ? <TabNavigator /> : <AuthStackNavigator />}
+      {isLoggedIn ? <TabNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };

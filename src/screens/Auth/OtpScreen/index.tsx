@@ -5,6 +5,7 @@ import { styles } from "./styles";
 import { CommonHeaderComponent, OtpInput } from "../../../components";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../resources";
+import { useAppSelector } from "../../../redux/hooks";
 
 type Props = {};
 
@@ -14,11 +15,11 @@ export const OtpScreen = (props: Props) => {
         navigation.goBack();
     }
     const [codes, setCodes] = useState<string[] | undefined>(Array(6).fill(""));
-
+    const userInfo = useAppSelector(state => state.userInfo.userInfo)
     return (
         <SafeAreaView style={styles.container}>
             <CommonHeaderComponent leftIcon1="chevron-left" leftButton1="Edit Number" leftButton1Press={leftBtn1Press}>
-                <Text style={styles.headerTxt}>+91 25526 25236</Text>
+                <Text style={styles.headerTxt}>{userInfo.countryDigit.digit} {userInfo.phoneNumber}</Text>
             </CommonHeaderComponent>
             <View style={styles.descTxtContainer}>
                 <Text style={styles.descTxt}>
@@ -31,7 +32,7 @@ export const OtpScreen = (props: Props) => {
                     activation code.
                 </Text>
             </View>
-            <View style={{ backgroundColor: COLORS.GREEN }}>
+            <View >
                 <OtpInput codes={codes!}
                 />
             </View>

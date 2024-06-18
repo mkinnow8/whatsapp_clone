@@ -3,20 +3,22 @@ import React from "react";
 import { styles } from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { ROUTE } from "../../../resources";
+import { useAppSelector } from "../../../redux/hooks";
 
 type Props = {
-    number?: string,
-    countryDigit: string,
+
     setVisible: React.Dispatch<React.SetStateAction<boolean>>
 };
 
-export const PhoneNumberModal = ({ number, countryDigit, setVisible }: Props) => {
+export const PhoneNumberModal = ({ setVisible }: Props) => {
     const navigation = useNavigation();
+    const userInfo = useAppSelector(state => state.userInfo.userInfo)
+    // console.log(userInfo)
     return (
         <View style={styles.container}>
             <View style={styles.mainContainer}>
                 <Text style={styles.headerTxt}>NUMBER CONFIRMATION:</Text>
-                <Text style={styles.number}>{countryDigit} {number}</Text>
+                <Text style={styles.number}>{userInfo.countryDigit.digit} {userInfo.phoneNumber}</Text>
                 <Text style={styles.headerTxt}>Is your phone number above correct?</Text>
                 <View style={styles.bottomContainer}>
                     <View style={styles.line}></View>

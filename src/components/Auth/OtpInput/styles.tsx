@@ -1,17 +1,17 @@
 import { StyleSheet } from "react-native";
+import { respFontSize, responsiveWidth, screenWidth } from "../../../utilities/responsiveFunctions";
 
 export const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        // marginVertical: 20,
+        width: screenWidth - responsiveWidth(140),
+        marginHorizontal: responsiveWidth(70)
     },
     input: {
-        width: '80%',
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        padding: 10,
+        fontWeight: 'bold',
+        fontSize: respFontSize(12)
     },
 
 });
