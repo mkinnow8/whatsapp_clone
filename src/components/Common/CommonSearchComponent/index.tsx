@@ -18,6 +18,7 @@ type Props = {
   isSearchFocused: boolean;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
   setIsSearchFocused: React.Dispatch<React.SetStateAction<boolean>>;
+  // setSearchText: (searchText: string) => void,
 };
 
 const CommonSearchComponent = ({
@@ -36,6 +37,7 @@ const CommonSearchComponent = ({
     searchRef.current?.blur();
     setSearchText('');
   };
+
   return (
     <View style={[genericStyles.rowContainer, {flex: 1}]}>
       <View style={styles.searchContainer}>

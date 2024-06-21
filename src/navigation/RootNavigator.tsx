@@ -1,3 +1,11 @@
+import {
+  ChatsScreen,
+  CountryScreen,
+  EditProfileScreen,
+  OtpScreen,
+  PhoneNumberScreen,
+  WelcomeAuthScreen,
+} from '../screens';
 import {StyleSheet, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -5,8 +13,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React, {useContext, useState} from 'react';
 import {COLORS, ROUTE} from '../resources';
-import {CameraPage, ChatsScreen, MediaPage} from '../screens';
+import {CameraPage, MediaPage} from '../screens';
 import {MyContext} from '../context/globalContext';
+import {useAppSelector} from '../redux/hooks';
 
 type Props = {};
 
@@ -14,10 +23,10 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = (props: Props) => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const isLoggedIn = useAppSelector(state => state.userInfo.isLoggedIn);
   return (
     <NavigationContainer>
-      {loggedIn ? <TabNavigator /> : <AuthStackNavigator />}
+      {isLoggedIn ? <TabNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };
@@ -109,7 +118,11 @@ const TabNavigator = () => {
 const AuthStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name={ROUTE.ALL_CHATS} component={ChatsScreen} />
+      <Stack.Screen name={ROUTE.WELCOME_AUTH} component={WelcomeAuthScreen} />
+      <Stack.Screen name={ROUTE.PHONE_NUMBER} component={PhoneNumberScreen} />
+      <Stack.Screen name={ROUTE.OTP} component={OtpScreen} />
+      <Stack.Screen name={ROUTE.COUNTRY} component={CountryScreen} />
+      <Stack.Screen name={ROUTE.EDIT_PROFILE} component={EditProfileScreen} />
     </Stack.Navigator>
   );
 };
