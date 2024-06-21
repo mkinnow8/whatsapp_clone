@@ -3,13 +3,14 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {COLORS, ROUTE} from '../resources';
-import {ChatsScreen} from '../screens';
+import {CameraPage, ChatsScreen, MediaPage} from '../screens';
+import {MyContext} from '../context/globalContext';
 
 type Props = {};
 
-const AuthStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const RootNavigator = (props: Props) => {
@@ -22,6 +23,8 @@ const RootNavigator = (props: Props) => {
 };
 
 const TabNavigator = () => {
+  const {isTabHidden, setIsTabHidden} = useContext(MyContext);
+  console.log(isTabHidden, 'isTabHidden');
   return (
     <Tab.Navigator
       screenOptions={{
@@ -29,6 +32,10 @@ const TabNavigator = () => {
         tabBarInactiveTintColor: COLORS.GREY,
         headerShown: false,
         tabBarHideOnKeyboard: true,
+
+        tabBarStyle: {
+          display: isTabHidden ? 'none' : 'flex',
+        },
       }}>
       <Tab.Screen
         name={ROUTE.STATUS}
@@ -70,8 +77,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={ROUTE.ALL_CHATS}
-        component={ChatsScreen}
+        name={ROUTE.CHATS}
+        component={ChatStackNavigator}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -101,9 +108,19 @@ const TabNavigator = () => {
 
 const AuthStackNavigator = () => {
   return (
-    <AuthStack.Navigator screenOptions={{headerShown: false}}>
-      <AuthStack.Screen name={ROUTE.ALL_CHATS} component={ChatsScreen} />
-    </AuthStack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name={ROUTE.ALL_CHATS} component={ChatsScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const ChatStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name={ROUTE.ALL_CHATS} component={ChatsScreen} />
+      <Stack.Screen name={ROUTE.CAMERA} component={CameraPage} />
+      <Stack.Screen name={ROUTE.MEDIA_PAGE} component={MediaPage} />
+    </Stack.Navigator>
   );
 };
 

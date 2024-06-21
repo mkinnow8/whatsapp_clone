@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
     itemContainer: {
         padding: responsiveWidth(12), flexDirection: 'row', alignItems: 'center',
         paddingVertical: responsiveHeight(10),
+        backgroundColor: COLORS.WHITE,
+           
     },
     image: {
         borderRadius: 50, height: 50, width: 50
@@ -23,6 +25,13 @@ export const styles = StyleSheet.create({
     unreadText: {
         textAlign: 'center',
         color: COLORS.WHITE,
-           
+    },
+    slideButton: {
+        height: responsiveHeight(64),
+        width: responsiveWidth(64),
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        zIndex: -1,
     }
 })

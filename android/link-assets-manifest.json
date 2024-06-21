@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Helvetica Neue.otf",
+      "sha1": "6013aa8c5fb912f30e935a310c5fa203317d00d8"
+    },
+    {
+      "path": "assets/fonts/Playwrite-Polska.ttf",
+      "sha1": "bd3d0634091d2e73041bbaad30b1e683ec744824"
+    }
+  ]
+}

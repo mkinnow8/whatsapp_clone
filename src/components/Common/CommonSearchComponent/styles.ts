@@ -4,7 +4,7 @@ import { responsiveHeight, responsiveWidth } from "../../../utilities/responsive
 
 export const styles = StyleSheet.create({
     searchContainer: {
-        flex: 1,
+        flex:1,
         flexDirection: 'row',
         backgroundColor: COLORS.LIGHT_BACKGROUND_GREY,
         alignItems: 'center',
@@ -13,12 +13,15 @@ export const styles = StyleSheet.create({
         height: responsiveHeight(28),
     },
     searchText: {
+        flex:1,
         textAlignVertical: 'center',
         padding: 0,
-        paddingLeft: responsiveWidth(6)
+        paddingLeft: responsiveWidth(8),
+    
     },
     iconStyle: {
         height: responsiveHeight(12),
         width: responsiveHeight(12),
     },
+
 })

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLORS } from "../resources";
-import { respFontSize, responsiveWidth } from "./responsiveFunctions";
+import { respFontSize, responsiveHeight, responsiveWidth } from "./responsiveFunctions";
 
 export const genericStyles = StyleSheet.create({
     rowContainer: {
@@ -20,8 +20,10 @@ export const genericStyles = StyleSheet.create({
     },
     textLarge: {
         fontSize: respFontSize(13),
-        fontWeight: '500',
         color: COLORS.BLACK
+    },
+    fw500:{
+        fontWeight: '500',
     },
     mr12: {
         marginRight: responsiveWidth(12),
@@ -35,4 +37,28 @@ export const genericStyles = StyleSheet.create({
     ml8: {
         marginLeft: responsiveWidth(8),
     },
+    mh12:{
+        marginHorizontal: responsiveWidth(12),
+    },
+    mv12: {
+        marginVertical: responsiveHeight(12),
+    },
+    mt8:{
+        marginTop: responsiveHeight(8),
+    },
+    pl8: {
+        paddingLeft: responsiveWidth(8)
+    },
+    pl12: {
+        paddingLeft: responsiveWidth(12)
+    },
+    pv8: {
+        paddingVertical: responsiveHeight(8),
+    },
+    pv12: {
+        paddingVertical: responsiveHeight(12),
+    },
+    ph12: {
+        paddingHorizontal: responsiveWidth(12),
+    }
 })

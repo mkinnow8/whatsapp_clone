@@ -21,4 +21,5 @@ export const COLORS = {
   LIGHT_BLUE_2: '#E9F5F5',
   LIGHT_BLUE_3: '#f5f9ff',
   LIGHT_BLUE_4: '#d3e6ff',
+ 
 };
