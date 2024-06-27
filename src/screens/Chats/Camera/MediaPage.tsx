@@ -1,5 +1,5 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import type {ImageLoadEventData, NativeSyntheticEvent} from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import type { ImageLoadEventData, NativeSyntheticEvent } from 'react-native';
 import {
   StyleSheet,
   View,
@@ -9,17 +9,22 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import type {OnVideoErrorData, OnLoadData} from 'react-native-video';
+import type { OnVideoErrorData, OnLoadData } from 'react-native-video';
 import Video from 'react-native-video';
-import {SAFE_AREA_PADDING} from './../../../resources/contants';
-import {useIsForeground} from '../../../hooks/useIsForeground'; // import { PressableOpacity } from 'react-native-pressable-opacity'
+import { SAFE_AREA_PADDING } from './../../../resources/contants';
+import { useIsForeground } from '../../../hooks/useIsForeground'; // import { PressableOpacity } from 'react-native-pressable-opacity'
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import {Alert} from 'react-native';
-import {CameraRoll} from '@react-native-camera-roll/camera-roll';
+import { Alert } from 'react-native';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 // import { StatusBarBlurBackground } from './views/StatusBarBlurBackground'
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 // import type { Routes } from './Routes'
-import {useIsFocused} from '@react-navigation/core';
+import { useIsFocused, useNavigation } from '@react-navigation/core';
+import { cancelIcon, shareIcon } from '../../../assets/icons';
+import { responsiveWidth } from '../../../utilities/responsiveFunctions';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { addStatus } from '../../../redux/slices/StatusSlice';
+import { ROUTE } from '../../../resources';
 
 const requestSavePermission = async (): Promise<boolean> => {
   // On Android 13 and above, scoped storage is used instead and no permission is needed
@@ -43,8 +48,9 @@ const isVideoOnLoadEvent = (
 ): event is OnLoadData => 'duration' in event && 'naturalSize' in event;
 
 type Props = NativeStackScreenProps<Routes, 'MediaPage'>;
-const MediaPage = ({navigation, route}: Props): React.ReactElement => {
-  const {path, type} = route.params;
+const MediaPage = ({ route }: Props): React.ReactElement => {
+  const navigation = useNavigation();
+  const { path, type } = route.params;
   const [hasMediaLoaded, setHasMediaLoaded] = useState(false);
   const isForeground = useIsForeground();
   const isScreenFocused = useIsFocused();
@@ -52,7 +58,7 @@ const MediaPage = ({navigation, route}: Props): React.ReactElement => {
   const [savingState, setSavingState] = useState<'none' | 'saving' | 'saved'>(
     'none',
   );
-
+  const dispatch = useAppDispatch();
   const onMediaLoad = useCallback((event: OnLoadData | OnLoadImage) => {
     if (isVideoOnLoadEvent(event)) {
       console.log(
@@ -70,7 +76,7 @@ const MediaPage = ({navigation, route}: Props): React.ReactElement => {
   const onMediaLoadError = useCallback((error: OnVideoErrorData) => {
     console.log(`failed to load media: ${JSON.stringify(error)}`);
   }, []);
-
+  const statusList = useAppSelector((state) => state.status.statusList)
   const onSavePressed = useCallback(async () => {
     try {
       setSavingState('saving');
@@ -96,11 +102,15 @@ const MediaPage = ({navigation, route}: Props): React.ReactElement => {
       );
     }
   }, [path, type]);
-
-  const source = useMemo(() => ({uri: `file://${path}`}), [path]);
+  // const onSavePressed = () => {
+  //   console.log('path', path);
+  //   dispatch(addStatus({ path: path }))
+  //   navigation.navigate(ROUTE.STATUS as never);
+  // }
+  const source = useMemo(() => ({ uri: `file://${path}` }), [path]);
 
   const screenStyle = useMemo(
-    () => ({opacity: hasMediaLoaded ? 1 : 0}),
+    () => ({ opacity: hasMediaLoaded ? 1 : 0 }),
     [hasMediaLoaded],
   );
 
@@ -137,7 +147,8 @@ const MediaPage = ({navigation, route}: Props): React.ReactElement => {
       )}
 
       <TouchableOpacity style={styles.closeButton} onPress={navigation.goBack}>
-        <IonIcon name="close" size={35} color="white" style={styles.icon} />
+        {/* <IonIcon name="close" size={35} color="white" style={styles.icon} /> */}
+        <Image source={cancelIcon} style={styles.icon} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -145,20 +156,10 @@ const MediaPage = ({navigation, route}: Props): React.ReactElement => {
         onPress={onSavePressed}
         disabled={savingState !== 'none'}>
         {savingState === 'none' && (
-          <IonIcon
-            name="download"
-            size={35}
-            color="white"
-            style={styles.icon}
-          />
+          <Image source={shareIcon} style={styles.icon} />
         )}
         {savingState === 'saved' && (
-          <IonIcon
-            name="checkmark"
-            size={35}
-            color="white"
-            style={styles.icon}
-          />
+          <Image source={shareIcon} style={styles.icon} />
         )}
         {savingState === 'saving' && <ActivityIndicator color="white" />}
       </TouchableOpacity>
@@ -168,7 +169,7 @@ const MediaPage = ({navigation, route}: Props): React.ReactElement => {
   );
 };
 
-export {MediaPage};
+export { MediaPage };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -178,24 +179,19 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     position: 'absolute',
-    top: SAFE_AREA_PADDING.paddingTop,
-    left: SAFE_AREA_PADDING.paddingLeft,
-    width: 40,
-    height: 40,
+    top: responsiveWidth(10),
+    left: responsiveWidth(10),
+    width: responsiveWidth(40),
+    height: responsiveWidth(40),
   },
   saveButton: {
     position: 'absolute',
     bottom: SAFE_AREA_PADDING.paddingBottom,
     left: SAFE_AREA_PADDING.paddingLeft,
-    width: 40,
-    height: 40,
+    width: responsiveWidth(40),
+    height: responsiveWidth(40),
   },
   icon: {
-    textShadowColor: 'black',
-    textShadowOffset: {
-      height: 0,
-      width: 0,
-    },
-    textShadowRadius: 1,
+
   },
 });

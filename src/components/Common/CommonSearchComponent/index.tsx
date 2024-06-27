@@ -7,11 +7,12 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import React, {useRef, useState} from 'react';
-import {COLORS} from '../../../resources';
-import {styles} from './styles';
-import {searchIcon} from '../../../assets';
-import {genericStyles} from '../../../utilities/genericStyles';
+import React, { useRef, useState } from 'react';
+import { COLORS } from '../../../resources';
+import { styles } from './styles';
+import { searchIcon } from '../../../assets';
+import { genericStyles } from '../../../utilities/genericStyles';
+import { responsiveWidth } from '../../../utilities/responsiveFunctions';
 
 type Props = {
   searchText: string;
@@ -39,7 +40,7 @@ const CommonSearchComponent = ({
   };
 
   return (
-    <View style={[genericStyles.rowContainer, {flex: 1}]}>
+    <View style={[genericStyles.rowContainer, { marginHorizontal: responsiveWidth(4) }]}>
       <View style={styles.searchContainer}>
         <Image source={searchIcon} style={styles.iconStyle} />
         <TextInput
@@ -67,4 +68,4 @@ const CommonSearchComponent = ({
   );
 };
 
-export {CommonSearchComponent};
+export { CommonSearchComponent };

@@ -60,7 +60,8 @@ export const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: respFontSize(14),
-        width: screenWidth - responsiveWidth(40)
+        width: screenWidth - responsiveWidth(40),
+        marginTop: -responsiveWidth(9)
     }
 
 

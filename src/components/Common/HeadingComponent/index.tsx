@@ -1,14 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {COLORS} from '../../../resources';
-import {respFontSize} from '../../../utilities/responsiveFunctions';
-import {genericStyles} from '../../../utilities/genericStyles';
+import { COLORS } from '../../../resources';
+import { respFontSize } from '../../../utilities/responsiveFunctions';
+import { genericStyles } from '../../../utilities/genericStyles';
 
 type Props = {
   text: string;
 };
 
-const HeadingComponent = ({text}: Props) => {
+const HeadingComponent = ({ text }: Props) => {
   return (
     <View style={[genericStyles.ml12]}>
       <Text style={styles.heading}>{text}</Text>
@@ -16,7 +16,7 @@ const HeadingComponent = ({text}: Props) => {
   );
 };
 
-export {HeadingComponent};
+export { HeadingComponent };
 
 const styles = StyleSheet.create({
   heading: {

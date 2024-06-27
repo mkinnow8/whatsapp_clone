@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.SEMI_TRANSPARENT
+        backgroundColor: COLORS.SEMI_TRANSPARENT,
+
     },
     mainContainer: {
         backgroundColor: COLORS.WHITE,
@@ -15,7 +16,8 @@ export const styles = StyleSheet.create({
         height: responsiveHeight(200),
         width: screenWidth - responsiveWidth(80),
         borderRadius: responsiveWidth(16),
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden'
     },
     headerTxt: {
         fontSize: respFontSize(12),
@@ -33,7 +35,7 @@ export const styles = StyleSheet.create({
     line: {
         width: screenWidth - responsiveWidth(80),
         backgroundColor: COLORS.GREY,
-        height: 0.2,
+        height: 0.5,
     },
     btnContainer: {
         flexDirection: 'row',

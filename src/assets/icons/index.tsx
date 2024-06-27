@@ -1,2 +1,11 @@
 export const HomeAuthIcon = require('./HomeAuthIcon.png');
 export const SelectedIcon = require('./Vector.png');
+export const plusIcon = require("./plusIcon.png");
+export const editIcon = require("./edit.png");
+export const cameraIcon = require("./Camera.png");
+export const cancelIcon = require('./Cancel.png');
+export const flashoffIcon = require('./flashoff.png');
+export const flashAutoIcon = require('./Light.png');
+export const reverseIcon = require('./reverse.png');
+export const galleryIcon = require('./gallary.png');
+export const shareIcon = require('./share.png');

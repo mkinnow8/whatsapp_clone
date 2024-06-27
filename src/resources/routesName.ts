@@ -9,8 +9,9 @@ export const ROUTE = {
   SETTINGS: 'Settings',
   CAMERA: 'Camera',
   CHATS: 'chats',
-  MEDIA_PAGE: 'media_page',
+  MEDIA_PAGE: 'mediaPage',
   OTP:'OTP',
   COUNTRY:'COUNTRYSCREEN',
-  EDIT_PROFILE:'EDITPROFILE'
+  EDIT_PROFILE:'EDITPROFILE',
+  MY_STATUS:'MyStatus'
 };

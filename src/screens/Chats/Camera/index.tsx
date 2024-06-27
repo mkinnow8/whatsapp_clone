@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, {
   useCallback,
   useContext,
@@ -12,6 +12,7 @@ import {
   PhotoFile,
   VideoFile,
   useCameraDevice,
+  useCameraDevices,
   useCameraFormat,
 } from 'react-native-vision-camera';
 import Reanimated, {
@@ -21,14 +22,14 @@ import Reanimated, {
   useAnimatedProps,
   useSharedValue,
 } from 'react-native-reanimated';
-import type {PinchGestureHandlerGestureEvent} from 'react-native-gesture-handler';
+import type { PinchGestureHandlerGestureEvent } from 'react-native-gesture-handler';
 import {
   PinchGestureHandler,
   TapGestureHandler,
 } from 'react-native-gesture-handler';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IonIcon from 'react-native-vector-icons/Ionicons';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   CONTENT_SPACING,
   CONTROL_BUTTON_SIZE,
@@ -37,12 +38,14 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from './../../../resources/contants';
-import {Camera} from 'react-native-vision-camera';
-import {MyContext} from '../../../context/globalContext';
-import {CaptureButton} from './CaptureButton';
-import {useIsFocused} from '@react-navigation/core';
-import {useIsForeground} from '../../../hooks/useIsForeground';
-import {ROUTE} from '../../../resources';
+import { Camera } from 'react-native-vision-camera';
+import { MyContext } from '../../../context/globalContext';
+import { CaptureButton } from './CaptureButton';
+import { useIsFocused } from '@react-navigation/core';
+import { useIsForeground } from '../../../hooks/useIsForeground';
+import { COLORS, ROUTE } from '../../../resources';
+import { flashAutoIcon, flashoffIcon, galleryIcon, reverseIcon } from '../../../assets/icons';
+import { responsiveHeight, responsiveWidth, screenWidth } from '../../../utilities/responsiveFunctions';
 
 const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera);
 Reanimated.addWhitelistedNativeProps({
@@ -53,17 +56,20 @@ type Props = {};
 
 const CameraPage = (props: Props) => {
   const navigation = useNavigation();
-  const device = useCameraDevice('back');
+
+
+
   const [targetFps, setTargetFps] = useState(60);
   const [enableHdr, setEnableHdr] = useState(false);
   const [flash, setFlash] = useState<'off' | 'on'>('off');
   const [enableNightMode, setEnableNightMode] = useState(false);
   const [isCameraInitialized, setIsCameraInitialized] = useState(false);
-  const {isTabHidden, setIsTabHidden} = useContext(MyContext);
+  const { isTabHidden, setIsTabHidden } = useContext(MyContext);
   const zoom = useSharedValue(1);
   const camera = useRef<Camera>(null);
   const isPressingButton = useSharedValue(false);
-
+  const [cameraPosition, setCameraPosition] = useState<'front' | 'back'>('back')
+  let device = useCameraDevice(cameraPosition);
   // check if camera page is active
   const isFocussed = useIsFocused();
   const isForeground = useIsForeground();
@@ -71,11 +77,11 @@ const CameraPage = (props: Props) => {
 
   const screenAspectRatio = SCREEN_HEIGHT / SCREEN_WIDTH;
   const format = useCameraFormat(device, [
-    {fps: targetFps},
-    {videoAspectRatio: screenAspectRatio},
-    {videoResolution: 'max'},
-    {photoAspectRatio: screenAspectRatio},
-    {photoResolution: 'max'},
+    { fps: targetFps },
+    { videoAspectRatio: screenAspectRatio },
+    { videoResolution: 'max' },
+    { photoAspectRatio: screenAspectRatio },
+    { photoResolution: 'max' },
   ]);
 
   const fps = Math.min(format?.maxFps ?? 1, targetFps);
@@ -128,7 +134,7 @@ const CameraPage = (props: Props) => {
   // function does not appear linear to the user. (aka zoom 0.1 -> 0.2 does not look equal in difference as 0.8 -> 0.9)
   const onPinchGesture = useAnimatedGestureHandler<
     PinchGestureHandlerGestureEvent,
-    {startZoom?: number}
+    { startZoom?: number }
   >({
     onStart: (_, context) => {
       context.startZoom = zoom.value;
@@ -149,13 +155,19 @@ const CameraPage = (props: Props) => {
     },
     [isPressingButton],
   );
+  const reverseCamera = useCallback(() => {
+    setCameraPosition((p) => (p === 'back' ? 'front' : 'back'))
 
+  }, [])
+  const onFlashPressed = useCallback(() => {
+    setFlash((f) => (f === 'off' ? 'on' : 'off'))
+  }, [])
   return (
     <View style={styles.container}>
       {device != null && (
         <PinchGestureHandler
           onGestureEvent={onPinchGesture}
-          // enabled={isActive}
+        // enabled={isActive}
         >
           <Reanimated.View
             // onTouchEnd={onFocusTap}
@@ -193,120 +205,101 @@ const CameraPage = (props: Props) => {
                 outputOrientation="device"
                 photo={true}
                 video={true}
-                // audio={microphone.hasPermission}
-                // enableLocation={location.hasPermission}
-                // frameProcessor={frameProcessor}
+              // audio={microphone.hasPermission}
+              // enableLocation={location.hasPermission}
+              // frameProcessor={frameProcessor}
               />
             </TapGestureHandler>
           </Reanimated.View>
         </PinchGestureHandler>
       )}
-
-      <CaptureButton
-        style={styles.captureButton}
-        camera={camera}
-        onMediaCaptured={onMediaCaptured}
-        cameraZoom={zoom}
-        minZoom={minZoom}
-        maxZoom={maxZoom}
-        flash={supportsFlash ? flash : 'off'}
-        enabled={isCameraInitialized && isActive}
-        setIsPressingButton={setIsPressingButton}
-      />
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setEnableHdr(h => !h)}>
+          <Image source={galleryIcon} style={styles.icon} />
+        </TouchableOpacity>
+        <CaptureButton
+          camera={camera}
+          onMediaCaptured={onMediaCaptured}
+          cameraZoom={zoom}
+          minZoom={minZoom}
+          maxZoom={maxZoom}
+          flash={supportsFlash ? flash : 'off'}
+          enabled={isCameraInitialized && isActive}
+          setIsPressingButton={setIsPressingButton}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          // onPress={onFlipCameraPressed}
+          onPress={() => reverseCamera()}
+        >
+          {/* <IonIcon name="camera-reverse" color="white" size={24} /> */}
+          <Image source={reverseIcon} style={{ width: 24, height: 24 }} />
+        </TouchableOpacity>
+      </View>
 
       {/* <StatusBarBlurBackground /> */}
 
       <View style={styles.rightButtonRow}>
         <TouchableOpacity
           style={styles.button}
-          // onPress={onFlipCameraPressed}
+        // onPress={onFlashPressed}
         >
-          <IonIcon name="camera-reverse" color="white" size={24} />
+          <Image source={flashAutoIcon} style={styles.icon} />
         </TouchableOpacity>
-        {supportsFlash && (
-          <TouchableOpacity
-            style={styles.button}
-            // onPress={onFlashPressed}
-          >
-            <IonIcon
-              name={flash === 'on' ? 'flash' : 'flash-off'}
-              color="white"
-              size={24}
-            />
-          </TouchableOpacity>
-        )}
-        {supports60Fps && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setTargetFps(t => (t === 30 ? 60 : 30))}>
-            <Text style={styles.text}>{`${targetFps}\nFPS`}</Text>
-          </TouchableOpacity>
-        )}
-        {supportsHdr && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setEnableHdr(h => !h)}>
-            <MaterialIcon
-              name={enableHdr ? 'hdr' : 'hdr-off'}
-              color="white"
-              size={24}
-            />
-          </TouchableOpacity>
-        )}
-        {canToggleNightMode && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => setEnableNightMode(!enableNightMode)}>
-            <IonIcon
-              name={enableNightMode ? 'moon' : 'moon-outline'}
-              color="white"
-              size={24}
-            />
-          </TouchableOpacity>
-        )}
+
         <TouchableOpacity
           style={styles.button}
-          // onPress={() => navigation.navigate('Devices')}
+          onPress={() => onFlashPressed()}
         >
-          <IonIcon name="settings-outline" color="white" size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          // onPress={() => navigation.navigate('CodeScannerPage')}
-        >
-          <IonIcon name="qr-code-outline" color="white" size={24} />
+          <Image source={flashoffIcon} style={styles.icon} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export {CameraPage};
+export { CameraPage };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
   },
-  captureButton: {
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     position: 'absolute',
-    alignSelf: 'center',
     bottom: '5%',
-    // bottom: SAFE_AREA_PADDING.paddingBottom,
+    width: screenWidth
   },
+
   button: {
-    marginBottom: CONTENT_SPACING,
-    width: CONTROL_BUTTON_SIZE,
-    height: CONTROL_BUTTON_SIZE,
-    borderRadius: CONTROL_BUTTON_SIZE / 2,
-    backgroundColor: 'rgba(140, 140, 140, 0.3)',
+    // marginBottom: CONTENT_SPACING,
+    width: responsiveWidth(40),
+    height: responsiveWidth(40),
+    borderRadius: responsiveWidth(20),
+    backgroundColor: COLORS.BLACK,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  icon: {
+    width: responsiveWidth(24),
+    height: responsiveWidth(20),
+    // borderRadius: responsiveWidth(20),
+  },
+
   rightButtonRow: {
     position: 'absolute',
-    right: SAFE_AREA_PADDING.paddingRight,
-    top: SAFE_AREA_PADDING.paddingTop,
+    right: responsiveWidth(10),
+    gap: responsiveHeight(10),
+    top: responsiveHeight(20)
+  },
+  topIcon: {
+    width: responsiveWidth(30),
+    height: responsiveWidth(30),
   },
   text: {
     color: 'white',

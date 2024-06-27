@@ -14,6 +14,7 @@ export const EditProfileScreen = (props: Props) => {
     const dispatch = useAppDispatch();
     const rightBtn1Press = () => {
         if (name && response) {
+            // console.log("done stage", response)
             dispatch(setNameAndImg({
                 name: name,
                 profilePhoto: response.assets[0].uri

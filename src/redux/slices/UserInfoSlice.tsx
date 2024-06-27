@@ -37,7 +37,7 @@ const UserInfoSlice = createSlice({
     reducers: {
         setNameAndImg: (state, action) => {
             state.userInfo.name = action.payload.name;
-            state.userInfo.profilePhoto = action.payload.name;
+            state.userInfo.profilePhoto = action.payload.profilePhoto;
             state.isLoggedIn = true;
         },
         setPhoneNumber: (state, action) => {

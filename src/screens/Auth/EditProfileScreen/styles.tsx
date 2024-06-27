@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
         backgroundColor: COLORS.GREY,
         height: 0.5,
         marginLeft: responsiveWidth(10),
-        marginVertical: responsiveWidth(10)
+        // marginVertical: responsiveWidth(10)
     },
 
 })
