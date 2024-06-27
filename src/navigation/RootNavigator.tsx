@@ -4,6 +4,7 @@ import {
   EditProfileScreen,
   OtpScreen,
   PhoneNumberScreen,
+  StatusScreen,
   WelcomeAuthScreen,
 } from '../screens';
 import {StyleSheet, Text, View} from 'react-native';
@@ -48,7 +49,7 @@ const TabNavigator = () => {
       }}>
       <Tab.Screen
         name={ROUTE.STATUS}
-        component={ChatsScreen}
+        component={StatusStackNavigator}
         options={{
           tabBarIcon: ({focused}) => (
             <Icon
@@ -133,6 +134,14 @@ const ChatStackNavigator = () => {
       <Stack.Screen name={ROUTE.ALL_CHATS} component={ChatsScreen} />
       <Stack.Screen name={ROUTE.CAMERA} component={CameraPage} />
       <Stack.Screen name={ROUTE.MEDIA_PAGE} component={MediaPage} />
+    </Stack.Navigator>
+  );
+};
+
+const StatusStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name={ROUTE.STATUS_SCREEN} component={StatusScreen} />
     </Stack.Navigator>
   );
 };

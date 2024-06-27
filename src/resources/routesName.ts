@@ -12,5 +12,7 @@ export const ROUTE = {
   MEDIA_PAGE: 'media_page',
   OTP:'OTP',
   COUNTRY:'COUNTRYSCREEN',
-  EDIT_PROFILE:'EDITPROFILE'
+  EDIT_PROFILE:'EDITPROFILE',
+  STATUS_SCREEN: 'status_screen',
+
 };
